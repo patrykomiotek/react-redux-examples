@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 
 import Counter from './Counter';
@@ -10,7 +10,11 @@ import './App.css';
 const reducers = combineReducers({
   counter: counterReducer
 });
-const store = createStore(reducers);
+
+const store = createStore(reducers, undefined, compose(
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
+  )
+);
 
 class App extends Component {
   render() {
