@@ -2,6 +2,15 @@ const ADD = 'counter/ADD';
 const SUB = 'counter/SUB';
 const RESET = 'counter/RESET';
 const ADD_VALUE = 'counter/ADD_VALUE';
+const ADD_FROM_SERVER = 'counter/ADD_FROM_SERVER';
+
+export function fetchFromServer() {
+  return function(dispatch) {
+    return fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => dispatch(addValue(response.value)));
+    }
+}
+
 
 export function add() {
   return {
