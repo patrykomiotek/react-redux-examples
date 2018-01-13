@@ -12,12 +12,15 @@ const reducers = combineReducers({
   counter: counterReducer
 });
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk)
+);
+
 const store = createStore(
   reducers,
-  applyMiddleware(thunk),
-  // compose(
-  //   window.devToolsExtension ? window.devToolsExtension() : f => f,
-  // )
+  enhancer
 );
 
 class App extends Component {
