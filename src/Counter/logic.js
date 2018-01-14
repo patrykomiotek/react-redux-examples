@@ -3,44 +3,36 @@ const SUB = 'counter/SUB';
 const RESET = 'counter/RESET';
 const ADD_VALUE = 'counter/ADD_VALUE';
 
-export function fetchFromServer() {
-  return function(dispatch) {
+export const fetchFromServer = () => {
+  return (dispatch) => {
     return fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
       .then(data => dispatch(addValue(data)))
     }
 }
 
-export function add() {
-  return {
-    type: ADD
-  }
-}
+export const add = () => ({
+  type: ADD
+})
 
-export function sub() {
-  return {
-    type: SUB
-  }
-}
+export const sub = () => ({
+  type: SUB
+});
 
-export function reset() {
-  return {
-    type: RESET
-  }
-}
+export const reset = () => ({
+  type: RESET
+});
 
-export function addValue(value) {
-  return {
-    type: ADD_VALUE,
-    value
-  }
-}
+export const addValue = (value) => ({
+  type: ADD_VALUE,
+  value
+});
 
 const INITIAL_STATE = {
   counterValue: 0
 };
 
-export default function reducer(state = INITIAL_STATE, action) {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD:
       return { counterValue: state.counterValue + 1 };
