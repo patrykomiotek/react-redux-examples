@@ -1,60 +1,43 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { add, sub, reset, addValue, fetchFromServer } from './logic';
 import CounterAwesomeButton from './CounterAwesomeButton';
 
-const mapStateToProps = state => {
-  return {
-    value: state.counter.counterValue
-  }
-}
+const mapStateToProps = (state) => ({
+  value: state.counter.counterValue
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    add: () => dispatch(add()),
-    sub: () => dispatch(sub()),
-    reset: () => dispatch(reset()),
-    addValue: (newValue) => dispatch(addValue(newValue)),
-    fetchFromServer: () => dispatch(fetchFromServer())
-  }
-}
+const mapDispatchToProps = {
+  add,
+  sub,
+  reset,
+  addValue,
+  fetchFromServer
+};
 
-class CounterContainer extends Component {
+function CounterContainer(props) {
 
-  componentDidMount() {
-    this.props.fetchFromServer();
-  }
+  useEffect(() => {
+    props.fetchFromServer();
+  }, []);
 
-  handleInc = () => {
-    this.props.add();
-  }
+  const handleInc = () => props.add();
+  const handleDec = () => props.sub();
+  const handleReset = () => props.reset();
+  const minusHundred = () => props.addValue(-100);
 
-  handleDec = () => {
-    this.props.sub();
-  }
-
-  handleReset = () => {
-    this.props.reset();
-  }
-
-  minusHundred = () => {
-    this.props.addValue(-100);
-  }
-
-  render() {
-    return (
+  return (
+    <div>
+      <div>Counter: {props.value}</div>
       <div>
-        <div>Counter: {this.props.value}</div>
-        <div>
-          <button onClick={this.handleInc}>Add</button>
-          <button onClick={this.handleDec}>Sub</button>
-          <button onClick={this.handleReset}>Reset</button>
-          <CounterAwesomeButton handleSub={this.minusHundred} />
-        </div>
+        <button onClick={handleInc}>Add</button>
+        <button onClick={handleDec}>Sub</button>
+        <button onClick={handleReset}>Reset</button>
+        <CounterAwesomeButton handleSub={minusHundred} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { addValue } from './logic';
@@ -7,19 +7,20 @@ const mapDispatchToProps = dispatch => {
   return {
     addValue: (newValue) => dispatch(addValue(newValue))
   }
-}
+};
 
-class CounterSuperButton extends Component {
+// it's the same
+// const mapDispatchToProps = dispatch => {
+//   addValue
+// };
 
-  handleClick = (event) => {
-    this.props.addValue(100);
-  }
+function CounterSuperButton(props) {
 
-  render() {
-    return(
-      <button onClick={this.handleClick}>Add 100!</button>
-    );
-  }
+  const handleClick = () => props.addValue(100);
+
+  return(
+    <button onClick={handleClick}>Add 100!</button>
+  );
 }
 
 export default connect(null, mapDispatchToProps)(CounterSuperButton);

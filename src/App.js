@@ -23,17 +23,15 @@ const store = createStore(
   enhancer
 );
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <div>
-          <Counter />
-          <CounterSuperButton />
-        </div>
-      </Provider>
-    );
-  }
+function App() {
+  return (
+    <Provider store={store}>
+      <div>
+        <Counter />
+        <CounterSuperButton />
+      </div>
+    </Provider>
+  );
 }
 
 export default App;
